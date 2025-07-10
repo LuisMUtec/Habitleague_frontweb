@@ -18,7 +18,8 @@ const TestPage: React.FC = () => {
       // Test 1: Basic connectivity
       addResult('🔍 Testing basic connectivity...');
       try {
-        const response = await fetch('http://localhost:8080/api/health', {
+        const testUrl = import.meta.env.VITE_TEST_API_URL || 'http://localhost:8080/api';
+        const response = await fetch(`${testUrl}/health`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -36,7 +37,8 @@ const TestPage: React.FC = () => {
       // Test 2: Direct API connectivity
       addResult('🔄 Testing direct API connectivity...');
       try {
-        const response = await fetch('http://localhost:8080/api/health', {
+        const testUrl = import.meta.env.VITE_TEST_API_URL || 'http://localhost:8080/api';
+        const response = await fetch(`${testUrl}/health`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -69,11 +71,14 @@ const TestPage: React.FC = () => {
       // Test 4: Login with detailed error analysis
       addResult('🔐 Testing login endpoint...');
       try {
+        const testEmail = import.meta.env.VITE_TEST_EMAIL || 'test@example.com';
+        const testPassword = import.meta.env.VITE_TEST_PASSWORD || 'testpassword123';
+        
         const loginData = {
-          email: 'test@example.com',
-          password: 'testpassword123'
+          email: testEmail,
+          password: testPassword
         };
-        addResult(`📤 Sending login data: ${JSON.stringify(loginData)}`);
+        addResult(`📤 Sending login data: ${JSON.stringify({ ...loginData, password: '***' })}`);
         
         const response = await apiService.postText(buildApiUrl('/auth/login'), loginData);
         addResult(`✅ Login succeeded (unexpected): ${response}`);
@@ -94,13 +99,16 @@ const TestPage: React.FC = () => {
       // Test 5: Register with detailed error analysis
       addResult('📝 Testing register endpoint...');
       try {
+        const testEmail = import.meta.env.VITE_TEST_EMAIL || 'test@example.com';
+        const testPassword = import.meta.env.VITE_TEST_PASSWORD || 'testpassword123';
+        
         const registerData = {
-          email: 'test@example.com',
-          password: 'testpassword123',
+          email: testEmail,
+          password: testPassword,
           firstName: 'Test',
           lastName: 'User'
         };
-        addResult(`📤 Sending register data: ${JSON.stringify(registerData)}`);
+        addResult(`📤 Sending register data: ${JSON.stringify({ ...registerData, password: '***' })}`);
         
         const response = await apiService.postText(buildApiUrl('/auth/register'), registerData);
         addResult(`✅ Register succeeded: ${response}`);

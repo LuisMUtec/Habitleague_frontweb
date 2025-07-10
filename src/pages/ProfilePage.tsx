@@ -163,7 +163,7 @@ const ProfilePage: React.FC = () => {
                   {(tab==='ongoing' ? ongoing : completed).map(ch => (
                     <div
                       key={ch.id}
-                      className="flex justify-between items-center bg-white p-6 rounded-2xl shadow"
+                      className="flex justify-between items-center bg-[#F7F4F2] p-6 rounded-2xl shadow"
                     >
                       {/* Aquí podrías renderizar tu <ChallengeCard /> o contenido */}
                       <div>

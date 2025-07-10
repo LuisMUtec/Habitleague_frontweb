@@ -302,7 +302,7 @@ const SubmitEvidencePage: React.FC = () => {
                 {myChallenges.map((challenge) => (
                   <div
                     key={challenge.id}
-                    className="border-2 border-gray-200 rounded-lg p-6 hover:border-black transition-colors cursor-pointer"
+                    className="border-2 border-gray-200 rounded-lg p-6 hover:border-black transition-colors cursor-pointer bg-[#F7F4F2]"
                     onClick={() => handleChallengeSelect(challenge.id!)}
                   >
                     <div className="flex items-center space-x-4">
@@ -425,13 +425,13 @@ const SubmitEvidencePage: React.FC = () => {
             
             {/* Location Requirements */}
             {challenge.location && (
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h4 className="font-medium text-blue-900 mb-2">📍 Location Requirements</h4>
-                <div className="space-y-2 text-sm text-blue-800">
+              <div className="p-4 bg-[#CEC1A8] border border-[#B59E7D] rounded-lg">
+                <h4 className="font-medium text-[#584738] mb-2">📍 Location Requirements</h4>
+                <div className="space-y-2 text-sm text-[#584738]">
                   <p><strong>Required Location:</strong> {challenge.location.locationName}</p>
                   <p><strong>Coordinates:</strong> {challenge.location.latitude.toFixed(6)}, {challenge.location.longitude.toFixed(6)}</p>
                   <p><strong>Tolerance Radius:</strong> {challenge.location.toleranceRadius}m</p>
-                  <p className="text-xs text-blue-600 mt-2">
+                  <p className="text-xs text-[#584738] mt-2">
                     💡 You must be within {challenge.location.toleranceRadius}m of this location to submit evidence
                   </p>
                 </div>

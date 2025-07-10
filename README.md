@@ -52,8 +52,12 @@ src/
 
 3. **Configurar variables de entorno**
    ```bash
-   # Crear archivo .env.local en la raíz del proyecto
-   VITE_API_URL=http://192.168.83.163:3000/api
+   # Copiar el archivo de ejemplo
+   cp env.example .env.local
+   
+   # Editar .env.local con tus valores
+   # VITE_API_URL=http://192.168.83.163:3000/api
+   # VITE_GOOGLE_MAPS_API_KEY=tu_api_key_aqui
    ```
 
 4. **Ejecutar en desarrollo**
@@ -70,10 +74,28 @@ src/
 
 ### Variables de Entorno
 
-Crea un archivo `.env.local` en la raíz del proyecto:
+Copia el archivo de ejemplo y configúralo:
+
+```bash
+cp env.example .env.local
+```
+
+Variables disponibles en `.env.local`:
 
 ```env
+# API Configuration
 VITE_API_URL=http://192.168.83.163:3000/api
+
+# Google Maps API (Required for location features)
+VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
+
+# Upload Service (for production)
+VITE_UPLOAD_SERVICE_URL=https://your-upload-service.com
+
+# Test Configuration
+VITE_TEST_API_URL=http://localhost:8080/api
+VITE_TEST_EMAIL=test@example.com
+VITE_TEST_PASSWORD=testpassword123
 ```
 
 ### Configuración de API

@@ -242,45 +242,45 @@ const ChallengeDetailPage: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Required Location</h3>
+                <h3 className="text-lg font-semibold text-[#584738] mb-3">Required Location</h3>
                 {challenge.location ? (
-                  <div className="space-y-3 text-gray-700">
-                    <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="space-y-3 text-[#584738]">
+                    <div className="p-4 bg-[#CEC1A8] rounded-lg border border-[#B59E7D]">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-blue-600">📍</span>
-                        <span className="font-medium text-blue-900">Location Name</span>
+                        <span className="text-[#584738]">📍</span>
+                        <span className="font-medium text-[#584738]">Location Name</span>
                       </div>
-                      <p className="text-blue-800">{challenge.location.locationName}</p>
+                      <p className="text-[#584738]">{challenge.location.locationName}</p>
                     </div>
                     
-                    <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div className="p-4 bg-[#F1EADA] rounded-lg border border-[#CEC1A8]">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-green-600">🎯</span>
-                        <span className="font-medium text-green-900">Coordinates</span>
+                        <span className="text-[#584738]">🎯</span>
+                        <span className="font-medium text-[#584738]">Coordinates</span>
                       </div>
-                      <p className="text-green-800 font-mono text-sm">
+                      <p className="text-[#584738] font-mono text-sm">
                         Lat: {challenge.location.latitude.toFixed(6)}<br/>
                         Lng: {challenge.location.longitude.toFixed(6)}
                       </p>
                     </div>
                     
-                    <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                    <div className="p-4 bg-[#F7F4F2] rounded-lg border border-[#CEC1A8]">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-purple-600">📏</span>
-                        <span className="font-medium text-purple-900">Tolerance Radius</span>
+                        <span className="text-[#584738]">📏</span>
+                        <span className="font-medium text-[#584738]">Tolerance Radius</span>
                       </div>
-                      <p className="text-purple-800">
+                      <p className="text-[#584738]">
                         You must be within <strong>{challenge.location.toleranceRadius}m</strong> of the specified location
                       </p>
                     </div>
                     
                     {challengeLocation && (
-                      <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                      <div className="p-4 bg-[#F1EADA] rounded-lg border border-[#CEC1A8]">
                         <div className="flex items-center space-x-2 mb-2">
-                          <span className="text-green-600">✅</span>
-                          <span className="font-medium text-green-900">Location Verified</span>
+                          <span className="text-[#584738]">✅</span>
+                          <span className="font-medium text-[#584738]">Location Verified</span>
                         </div>
-                        <p className="text-green-800 text-sm">
+                        <p className="text-[#584738] text-sm">
                           Location data retrieved from challenge registration
                         </p>
                       </div>
@@ -288,22 +288,22 @@ const ChallengeDetailPage: React.FC = () => {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div className="p-4 bg-[#F1EADA] rounded-lg border border-[#CEC1A8]">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-yellow-600">⚠️</span>
-                        <span className="font-medium text-yellow-900">Location Information Missing</span>
+                        <span className="text-[#584738]">⚠️</span>
+                        <span className="font-medium text-[#584738]">Location Information Missing</span>
                       </div>
-                      <p className="text-yellow-800 text-sm">
+                      <p className="text-[#584738] text-sm">
                         This challenge should have location requirements, but the information is not available.
                       </p>
                     </div>
                     
-                    <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="p-4 bg-[#F7F4F2] rounded-lg border border-[#CEC1A8]">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-gray-600">ℹ️</span>
-                        <span className="font-medium text-gray-900">Debug Information</span>
+                        <span className="text-[#584738]">ℹ️</span>
+                        <span className="font-medium text-[#584738]">Debug Information</span>
                       </div>
-                      <p className="text-gray-700 text-sm">
+                      <p className="text-[#584738] text-sm">
                         Challenge ID: {challenge.id}<br/>
                         Has location property: {challenge.location ? 'Yes' : 'No'}<br/>
                         Location service response: {challengeLocation ? 'Success' : 'Failed'}<br/>

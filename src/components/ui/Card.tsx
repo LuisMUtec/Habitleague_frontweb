@@ -8,7 +8,7 @@ const Card: React.FC<CardProps> = ({
   hoverable = false,
   ...props
 }) => {
-  const baseClasses = 'bg-white rounded-lg shadow-sm border border-[#CEC1A8] overflow-hidden';
+  const baseClasses = 'bg-[#F7F4F2] rounded-lg shadow-sm border border-[#CEC1A8] overflow-hidden';
   const hoverClasses = hoverable ? 'hover:shadow-md hover:border-[#B59E7D] transition-all duration-200 cursor-pointer' : '';
   const classes = `${baseClasses} ${hoverClasses} ${className}`;
 
