@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit League</title>
+
+    <!-- 1️⃣  Fuente global (Plus Jakarta Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 2️⃣  Tailwind CDN + plugin forms -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    <!-- 3️⃣  Configuración Tailwind (fuente, colores, sombras) -->
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: {
+            /* 👉 fuente por defecto para TODO el sitio */
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          extend: {
+            colors: {
+              primary: '#646cff',
+              secondary: '#10B981',
+            },
+            boxShadow: {
+              card: '0 4px 6px rgba(0,0,0,0.1)',
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- 4️⃣  Fallback para evitar FOUC en el primer render -->
+    <style>
+      html {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="h-full bg-[#F5EFE8]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

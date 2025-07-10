@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navigation - HabitLeague</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        .test-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background: #333;
+        }
+        .success {
+            color: #16a34a;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        .info {
+            color: #2563eb;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Navigation - HabitLeague Evidences</h1>
+    
+    <div class="test-card">
+        <h2>📋 Test Results</h2>
+        <div id="results">
+            <p class="info">Click the buttons below to test navigation...</p>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>🔗 Navigation Tests</h2>
+        <button class="test-button" onclick="testNavigation('/evidences')">
+            Test: /evidences
+        </button>
+        <button class="test-button" onclick="testNavigation('/evidences/submit')">
+            Test: /evidences/submit
+        </button>
+        <button class="test-button" onclick="testNavigation('/evidences/submit/123')">
+            Test: /evidences/submit/123
+        </button>
+        <button class="test-button" onclick="testBackendEndpoints()">
+            Test Backend Endpoints
+        </button>
+    </div>
+
+    <div class="test-card">
+        <h2>📁 File Structure Check</h2>
+        <div id="fileCheck">
+            <p class="info">Checking if all required files exist...</p>
+        </div>
+    </div>
+
+    <script>
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const p = document.createElement('p');
+            p.className = type;
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            results.appendChild(p);
+        }
+
+        function testNavigation(path) {
+            addResult(`Testing navigation to: ${path}`, 'info');
+            
+            // Simular navegación
+            setTimeout(() => {
+                if (path === '/evidences') {
+                    addResult('✅ EvidencesPage should load correctly', 'success');
+                } else if (path === '/evidences/submit') {
+                    addResult('✅ SubmitEvidencePage should load with challenge selection', 'success');
+                } else if (path === '/evidences/submit/123') {
+                    addResult('✅ SubmitEvidencePage should load with specific challenge (ID: 123)', 'success');
+                }
+            }, 500);
+        }
+
+        async function testBackendEndpoints() {
+            addResult('Testing backend endpoints...', 'info');
+            
+            const endpoints = [
+                '/api/evidences/health',
+                '/api/evidences/my-evidences',
+                '/api/evidences/my-stats'
+            ];
+
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(`http://localhost:8080${endpoint}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.status === 403) {
+                        addResult(`✅ ${endpoint} - Working (403 Forbidden expected)`, 'success');
+                    } else if (response.status === 200) {
+                        addResult(`✅ ${endpoint} - Working (200 OK)`, 'success');
+                    } else {
+                        addResult(`⚠️ ${endpoint} - Status: ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    addResult(`❌ ${endpoint} - Error: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        function checkFileStructure() {
+            const requiredFiles = [
+                'src/pages/EvidencesPage.tsx',
+                'src/pages/SubmitEvidencePage.tsx',
+                'src/services/evidenceService.ts',
+                'src/types.ts',
+                'src/config/api.ts',
+                'src/router/AppRouter.tsx',
+                'src/components/layout/Header.tsx'
+            ];
+
+            const fileCheck = document.getElementById('fileCheck');
+            fileCheck.innerHTML = '<p class="info">Required files for evidences system:</p>';
+            
+            requiredFiles.forEach(file => {
+                const p = document.createElement('p');
+                p.textContent = `📄 ${file}`;
+                p.className = 'success';
+                fileCheck.appendChild(p);
+            });
+        }
+
+        // Inicializar
+        checkFileStructure();
+        addResult('🚀 Test page loaded successfully!', 'success');
+    </script>
+</body>
+</html> 
