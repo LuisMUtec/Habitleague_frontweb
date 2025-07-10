@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
   }, [fetchFeaturedChallenges, fetchPopularChallenges]);
 
   return (
-    <div className="home-container">
+    <div className="min-h-screen bg-[#F1EADA]">
       <header className="home-header">
         <h1 className="home-title">Welcome to HabitLeague</h1>
         <p className="home-subtitle">Join challenges, build habits, and compete with others</p>

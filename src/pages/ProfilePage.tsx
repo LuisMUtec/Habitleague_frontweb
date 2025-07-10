@@ -82,7 +82,7 @@ const ProfilePage: React.FC = () => {
   const handleName = user?.email?.split('@')[0] ?? ''
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="profile" />
 
       <main className="max-w-4xl mx-auto px-4 py-8 space-y-12">
@@ -107,7 +107,7 @@ const ProfilePage: React.FC = () => {
             </button>
             <button
               onClick={handleLogout}
-              className="w-full h-12 bg-black rounded-xl text-white font-medium"
+              className="w-full h-12 bg-[#B59E7D] rounded-xl text-[#F1EADA] font-medium"
             >
               Log Out
             </button>
@@ -163,7 +163,7 @@ const ProfilePage: React.FC = () => {
                   {(tab==='ongoing' ? ongoing : completed).map(ch => (
                     <div
                       key={ch.id}
-                      className="flex justify-between items-center bg-white p-6 rounded-2xl shadow"
+                      className="flex justify-between items-center bg-[#F7F4F2] p-6 rounded-2xl shadow"
                     >
                       {/* Aquí podrías renderizar tu <ChallengeCard /> o contenido */}
                       <div>

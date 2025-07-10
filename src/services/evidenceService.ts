@@ -65,7 +65,8 @@ export const evidenceService = {
     // NOTA: Cualquier imagen es aceptada sin validación AI
     return new Promise((resolve) => {
       setTimeout(() => {
-        const fakeImageUrl = `https://example.com/evidence-images/${Date.now()}.jpg`;
+        const uploadServiceUrl = import.meta.env.VITE_UPLOAD_SERVICE_URL || 'https://example.com';
+        const fakeImageUrl = `${uploadServiceUrl}/evidence-images/${Date.now()}.jpg`;
         console.log('✅ Image uploaded and accepted (no AI validation):', fakeImageUrl);
         resolve(fakeImageUrl);
       }, 1000); // Reducido a 1 segundo para mejor UX

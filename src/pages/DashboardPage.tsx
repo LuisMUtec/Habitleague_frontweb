@@ -8,6 +8,9 @@ import { apiService } from '../services/api'
 import { buildApiUrl } from '../config/api'
 import type { Challenge, ChallengeParticipant } from '../types'
 import { getChallengePalette } from '../utils/colorPalette';
+import camaraImg from '../assets/camara.png';
+import estadisticaImg from '../assets/estadistica.png';
+import trofeoImg from '../assets/trofeo.png';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate()
@@ -24,6 +27,8 @@ const DashboardPage: React.FC = () => {
   const [participants, setParticipants] = useState<ChallengeParticipant[]>([])
   const [participantsLoading, setParticipantsLoading] = useState(false)
   const [participantsError, setParticipantsError] = useState<string | null>(null)
+  const [showDetailsModal, setShowDetailsModal] = useState(false)
+  const [selectedChallengeForDetails, setSelectedChallengeForDetails] = useState<Challenge | null>(null)
 
   useEffect(() => {
     const fetchMyChallenges = async () => {
@@ -188,6 +193,31 @@ const DashboardPage: React.FC = () => {
     }
   }
 
+  // Función para mostrar detalles del challenge
+  const handleViewChallengeDetails = async (challenge: Challenge) => {
+    console.log('🔍 Viewing challenge details:', challenge)
+    
+    // Fetch complete challenge data from individual endpoint
+    let completeChallenge = { ...challenge }
+    
+    try {
+      console.log('🔍 Fetching complete challenge data for ID:', challenge.id)
+      const challengeResponse = await challengeService.getChallengeById(challenge.id)
+      const challengeData = (challengeResponse as any).data || challengeResponse
+      console.log('🔍 Complete challenge data from backend:', challengeData)
+      
+      // Update the challenge with complete data
+      completeChallenge = { ...challenge, ...challengeData }
+      console.log('✅ Complete challenge data loaded:', completeChallenge)
+    } catch (err: any) {
+      console.log('⚠️ Could not fetch complete challenge data:', err.message)
+      // Continue with original challenge data
+    }
+    
+    setSelectedChallengeForDetails(completeChallenge)
+    setShowDetailsModal(true)
+  }
+
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -209,7 +239,7 @@ const DashboardPage: React.FC = () => {
   const displayName = firstName || emailName || 'there'
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="dashboard" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
@@ -232,8 +262,8 @@ const DashboardPage: React.FC = () => {
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-2xl shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-[#F5EFE8] rounded-lg flex items-center justify-center">
-                <span className="text-2xl">📸</span>
+              <div className="w-12 h-12 bg-[#CEC1A8] rounded-lg flex items-center justify-center">
+                <img src={camaraImg} alt="Camera" className="w-10 h-10" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Daily Evidence</h3>
@@ -242,7 +272,7 @@ const DashboardPage: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/evidences')}
-              className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+              className="w-full px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm"
             >
               Submit Evidence
             </button>
@@ -250,8 +280,8 @@ const DashboardPage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-[#F5EFE8] rounded-lg flex items-center justify-center">
-                <span className="text-2xl">📊</span>
+              <div className="w-12 h-12 bg-[#CEC1A8] rounded-lg flex items-center justify-center">
+                <img src={estadisticaImg} alt="Statistics" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">View Progress</h3>
@@ -260,7 +290,7 @@ const DashboardPage: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/evidences?tab=stats')}
-              className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+              className="w-full px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm"
             >
               View Stats
             </button>
@@ -268,8 +298,8 @@ const DashboardPage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-[#F5EFE8] rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🏆</span>
+              <div className="w-12 h-12 bg-[#CEC1A8] rounded-lg flex items-center justify-center">
+                <img src={trofeoImg} alt="Trophy" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Join Challenges</h3>
@@ -278,7 +308,7 @@ const DashboardPage: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/challenges')}
-              className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+              className="w-full px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm"
             >
               Browse Challenges
             </button>
@@ -306,7 +336,7 @@ const DashboardPage: React.FC = () => {
                 return (
                   <div
                     key={ch.id}
-                    className="p-6 rounded-2xl shadow flex flex-col bg-white"
+                    className="p-6 rounded-2xl shadow flex flex-col bg-[#F7F4F2]"
                   >
                     <img
                       src={ch.imageUrl}
@@ -319,7 +349,7 @@ const DashboardPage: React.FC = () => {
                     <p className="flex-grow mb-4 text-gray-600">
                       {ch.description}
                     </p>
-                    <div className="flex justify-between text-sm text-gray-500">
+                    <div className="flex justify-between text-sm text-gray-500 mb-3">
                       <span>{ch.durationDays} days</span>
                       <button
                         onClick={() => handleViewParticipants(ch)}
@@ -328,6 +358,14 @@ const DashboardPage: React.FC = () => {
                         {realParticipantsCount[ch.id] !== undefined
                           ? realParticipantsCount[ch.id]
                           : ch.participantsCount || 0} participants
+                      </button>
+                    </div>
+                    <div className="space-y-2">
+                      <button
+                        onClick={() => handleViewChallengeDetails(ch)}
+                        className="w-full py-2 bg-[#CEC1A8] text-[#584738] rounded-lg text-sm font-medium hover:bg-[#B59E7D] hover:text-[#F1EADA]"
+                      >
+                        View Details
                       </button>
                     </div>
                   </div>
@@ -405,6 +443,101 @@ const DashboardPage: React.FC = () => {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Modal de detalles del challenge */}
+        {showDetailsModal && selectedChallengeForDetails && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-[#F7F4F2] rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-bold text-[#584738]">
+                  Challenge Details: {selectedChallengeForDetails.name}
+                </h3>
+                <button
+                  onClick={() => setShowDetailsModal(false)}
+                  className="text-[#AAA396] hover:text-[#584738]"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Imagen del challenge */}
+                <div>
+                  <img
+                    src={selectedChallengeForDetails.imageUrl}
+                    alt={selectedChallengeForDetails.name}
+                    className="w-full h-64 object-cover rounded-lg"
+                  />
+                </div>
+
+                {/* Información del challenge */}
+                <div className="space-y-6">
+                  {/* Información básica */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-[#584738] mb-3">Challenge Information</h4>
+                    <div className="space-y-2 text-sm">
+                      <p className="text-[#584738]"><strong>Name:</strong> {selectedChallengeForDetails.name}</p>
+                      <p className="text-[#584738]"><strong>Category:</strong> {selectedChallengeForDetails.category}</p>
+                      <p className="text-[#584738]"><strong>Duration:</strong> {selectedChallengeForDetails.durationDays} days</p>
+                      <p className="text-[#584738]"><strong>Entry Fee:</strong> ${selectedChallengeForDetails.entryFee}</p>
+                      <p className="text-[#584738]"><strong>Participants:</strong> {selectedChallengeForDetails.participantsCount}</p>
+                    </div>
+                  </div>
+
+                  {/* Descripción */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-[#584738] mb-3">Description</h4>
+                    <p className="text-[#584738] text-sm leading-relaxed">
+                      {selectedChallengeForDetails.description}
+                    </p>
+                  </div>
+
+                  {/* Ubicación si está disponible */}
+                  {selectedChallengeForDetails.location && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-[#584738] mb-3">Location</h4>
+                      <div className="space-y-2 text-sm">
+                        <p className="text-[#584738]"><strong>Name:</strong> {selectedChallengeForDetails.location.locationName}</p>
+                        <p className="text-[#584738]"><strong>Coordinates:</strong> {selectedChallengeForDetails.location.latitude}, {selectedChallengeForDetails.location.longitude}</p>
+                        <p className="text-[#584738]"><strong>Tolerance Radius:</strong> {selectedChallengeForDetails.location.toleranceRadius}m</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Fechas si están disponibles */}
+                  {selectedChallengeForDetails.startDate && selectedChallengeForDetails.endDate && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-[#584738] mb-3">Timeline</h4>
+                      <div className="space-y-2 text-sm">
+                        <p className="text-[#584738]"><strong>Start Date:</strong> {new Date(selectedChallengeForDetails.startDate).toLocaleDateString()}</p>
+                        <p className="text-[#584738]"><strong>End Date:</strong> {new Date(selectedChallengeForDetails.endDate).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Botones de acción */}
+              <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+                <button
+                  onClick={() => setShowDetailsModal(false)}
+                  className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    setShowDetailsModal(false)
+                    navigate(`/challenges/${selectedChallengeForDetails.id}`)
+                  }}
+                  className="px-6 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738]"
+                >
+                  Go to Challenge
+                </button>
+              </div>
             </div>
           </div>
         )}

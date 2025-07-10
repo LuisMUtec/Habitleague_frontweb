@@ -99,7 +99,7 @@ const EditProfilePage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="profile" />
 
       <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
@@ -176,7 +176,7 @@ const EditProfilePage: React.FC = () => {
           <button
             type="submit"
             disabled={saving}
-            className="w-full py-2 bg-black text-white rounded-md mt-4 disabled:opacity-50"
+            className="w-full py-2 bg-[#B59E7D] text-[#F1EADA] rounded-md mt-4 disabled:opacity-50"
           >
             {saving ? 'Guardando…' : 'Save Changes'}
           </button>

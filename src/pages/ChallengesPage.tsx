@@ -441,6 +441,28 @@ const ChallengesPage: React.FC = () => {
     console.log('📍 State updated:', { latitude: lat.toString(), longitude: lng.toString(), location: address })
   }
 
+  const handleCategorySelect = (categoryKey: ChallengeCategory) => {
+    setSelectedCat(categoryKey)
+    // Hacer scroll a la sección de challenges después de un pequeño delay
+    setTimeout(() => {
+      const challengesSection = document.getElementById('challenges-section')
+      if (challengesSection) {
+        challengesSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
+  }
+
+  const handleCreateChallengeClick = () => {
+    setShowForm(!showForm)
+    // Hacer scroll al formulario después de un pequeño delay
+    setTimeout(() => {
+      const createFormSection = document.getElementById('create-form-section')
+      if (createFormSection) {
+        createFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
+  }
+
   // Función de debug para verificar el estado actual
   const debugCurrentState = () => {
     console.log('🔍 DEBUG: Current form state:', {
@@ -692,7 +714,7 @@ const ChallengesPage: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="challenges" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-12">
@@ -723,7 +745,7 @@ const ChallengesPage: React.FC = () => {
               {popularChallenges.map(ch => (
                 <div
                   key={ch.id}
-                  className="bg-white rounded-2xl shadow p-4 flex flex-col"
+                  className="bg-[#F7F4F2] rounded-2xl shadow p-4 flex flex-col"
                 >
                   <img
                     src={ch.imageUrl}
@@ -749,13 +771,13 @@ const ChallengesPage: React.FC = () => {
                   <div className="space-y-2">
                     <button
                       onClick={() => handleViewChallengeDetails(ch)}
-                      className="w-full py-2 bg-gray-100 text-gray-800 rounded-lg text-sm font-medium hover:bg-gray-200"
+                      className="w-full py-2 bg-[#CEC1A8] text-[#584738] rounded-lg text-sm font-medium hover:bg-[#B59E7D] hover:text-[#F1EADA]"
                     >
                       View Details
                     </button>
                     <button
                       onClick={() => handleJoinChallenge(ch)}
-                      className="w-full py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-900"
+                      className="w-full py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg text-sm font-medium hover:bg-[#584738]"
                     >
                       Join Challenge
                     </button>
@@ -773,9 +795,9 @@ const ChallengesPage: React.FC = () => {
             {categories.map(cat => (
               <button
                 key={cat.key}
-                onClick={() => setSelectedCat(cat.key)}
+                onClick={() => handleCategorySelect(cat.key)}
                 className={
-                  `flex items-center space-x-4 p-3 bg-white rounded-lg shadow ${selectedCat === cat.key ? 'ring-2 ring-black' : ''}`
+                  `flex items-center space-x-4 p-3 bg-[#F7F4F2] rounded-lg shadow ${selectedCat === cat.key ? 'ring-4 ring-[#B59E7D] border-2 border-[#584738]' : 'border-2 border-transparent'}`
                 }
               >
                 <img
@@ -790,8 +812,8 @@ const ChallengesPage: React.FC = () => {
 
           <div className="mt-6">
             <button
-              onClick={() => setShowForm(!showForm)}
-              className="px-6 py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-900"
+              onClick={handleCreateChallengeClick}
+              className="px-6 py-3 bg-[#584738] text-[#F1EADA] rounded-xl font-medium hover:bg-[#3A2F25]"
             >
               Create a Challenge
             </button>
@@ -800,16 +822,9 @@ const ChallengesPage: React.FC = () => {
 
         {/* ─── Formulario de creación ─── */}
         {showForm && (
-          <section className="bg-white p-6 rounded-2xl shadow space-y-6">
+          <section id="create-form-section" className="bg-[#F7F4F2] p-6 rounded-2xl shadow space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-bold text-gray-900">Create your own</h3>
-              <button
-                type="button"
-                onClick={debugCurrentState}
-                className="px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700"
-              >
-                🔍 Debug State
-              </button>
             </div>
             <form onSubmit={handleCreate} className="space-y-4">
 
@@ -888,6 +903,32 @@ const ChallengesPage: React.FC = () => {
                 />
               </div>
 
+              {/* Start / End Date */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Start Date
+                  </label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={e => setStartDate(e.target.value)}
+                    className="w-full h-12 px-4 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    End Date
+                  </label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={e => setEndDate(e.target.value)}
+                    className="w-full h-12 px-4 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                  />
+                </div>
+              </div>
+
               {/* Duration */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -915,32 +956,6 @@ const ChallengesPage: React.FC = () => {
                   placeholder="Write the rules for this challenge"
                   className="w-full px-4 py-3 rounded-xl bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 />
-              </div>
-
-              {/* Start / End Date */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Start Date
-                  </label>
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={e => setStartDate(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    value={endDate}
-                    onChange={e => setEndDate(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                  />
-                </div>
               </div>
 
               {/* Location Details */}
@@ -1111,7 +1126,7 @@ const ChallengesPage: React.FC = () => {
 
         {/* ─── Resultados ─── */}
         {selectedCat && (
-          <section>
+          <section id="challenges-section">
             <h3 className="text-xl font-bold text-gray-900 mb-4">
               {categories.find(c => c.key === selectedCat)?.label} Challenges
             </h3>
@@ -1126,7 +1141,7 @@ const ChallengesPage: React.FC = () => {
                       return (
                         <div
                           key={ch.id}
-                          className="rounded-2xl shadow p-6 flex flex-col bg-white"
+                          className="rounded-2xl shadow p-6 flex flex-col bg-[#F7F4F2]"
                         >
                           <img
                             src={ch.imageUrl}
@@ -1139,13 +1154,21 @@ const ChallengesPage: React.FC = () => {
                           <p className="text-gray-600 mb-4 flex-grow">
                             {ch.description}
                           </p>
-                          <div className="flex justify-between items-center">
+                          <div className="flex justify-between items-center mb-3">
                             <span className="text-sm text-gray-500">
                               {ch.durationDays} days • ${ch.entryFee}
                             </span>
+                          </div>
+                          <div className="space-y-2">
+                            <button
+                              onClick={() => handleViewChallengeDetails(ch)}
+                              className="w-full py-2 bg-[#CEC1A8] text-[#584738] rounded-lg text-sm font-medium hover:bg-[#B59E7D] hover:text-[#F1EADA]"
+                            >
+                              View Details
+                            </button>
                             <button
                               onClick={() => handleJoinChallenge(ch)}
-                              className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+                              className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
                             >
                               Join Challenge
                             </button>
@@ -1166,7 +1189,7 @@ const ChallengesPage: React.FC = () => {
         {/* ─── Modal para unirse al challenge ─── */}
         {showJoinModal && selectedChallenge && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-[#F7F4F2] rounded-2xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-bold text-gray-900">
                   Join Challenge: {selectedChallenge.name}
@@ -1284,14 +1307,14 @@ const ChallengesPage: React.FC = () => {
         {/* ─── Modal de detalles del challenge ─── */}
         {showDetailsModal && selectedChallengeForDetails && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                          <div className="bg-[#F7F4F2] rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-[#584738]">
                   Challenge Details: {selectedChallengeForDetails.name}
                 </h3>
                 <button
                   onClick={() => setShowDetailsModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-[#AAA396] hover:text-[#584738]"
                 >
                   ✕
                 </button>
@@ -1311,37 +1334,37 @@ const ChallengesPage: React.FC = () => {
                 <div className="space-y-6">
                   {/* Información básica */}
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Challenge Information</h4>
+                    <h4 className="text-lg font-semibold text-[#584738] mb-3">Challenge Information</h4>
                     <div className="space-y-2 text-sm">
-                      <p><strong>Name:</strong> {selectedChallengeForDetails.name}</p>
-                      <p><strong>Category:</strong> {selectedChallengeForDetails.category}</p>
-                      <p><strong>Duration:</strong> {selectedChallengeForDetails.durationDays} days</p>
-                      <p><strong>Entry Fee:</strong> ${selectedChallengeForDetails.entryFee}</p>
-                      <p><strong>Participants:</strong> {selectedChallengeForDetails.participantsCount}</p>
+                      <p className="text-[#584738]"><strong>Name:</strong> {selectedChallengeForDetails.name}</p>
+                      <p className="text-[#584738]"><strong>Category:</strong> {selectedChallengeForDetails.category}</p>
+                      <p className="text-[#584738]"><strong>Duration:</strong> {selectedChallengeForDetails.durationDays} days</p>
+                      <p className="text-[#584738]"><strong>Entry Fee:</strong> ${selectedChallengeForDetails.entryFee}</p>
+                      <p className="text-[#584738]"><strong>Participants:</strong> {selectedChallengeForDetails.participantsCount}</p>
                     </div>
                   </div>
 
                   {/* Descripción */}
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Description</h4>
-                    <p className="text-gray-700 text-sm">{selectedChallengeForDetails.description}</p>
+                    <h4 className="text-lg font-semibold text-[#584738] mb-3">Description</h4>
+                    <p className="text-[#AAA396] text-sm">{selectedChallengeForDetails.description}</p>
                   </div>
 
                   {/* Reglas */}
                   {selectedChallengeForDetails.rules && (
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Rules</h4>
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-gray-700 text-sm whitespace-pre-wrap">{selectedChallengeForDetails.rules}</p>
+                      <h4 className="text-lg font-semibold text-[#584738] mb-3">Rules</h4>
+                      <div className="bg-[#F1EADA] p-4 rounded-lg">
+                        <p className="text-[#584738] text-sm whitespace-pre-wrap">{selectedChallengeForDetails.rules}</p>
                       </div>
                     </div>
                   )}
 
                   {/* Fechas */}
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Timeline</h4>
+                    <h4 className="text-lg font-semibold text-[#584738] mb-3">Timeline</h4>
                     <div className="space-y-2 text-sm">
-                      <p><strong>Start Date:</strong> {
+                      <p className="text-[#584738]"><strong>Start Date:</strong> {
                         (() => {
                           const startDate = selectedChallengeForDetails.startDate;
                           if (!startDate || startDate.trim() === '') return 'Not specified';
@@ -1370,7 +1393,7 @@ const ChallengesPage: React.FC = () => {
                             : `Raw value: ${startDate}`;
                         })()
                       }</p>
-                      <p><strong>End Date:</strong> {
+                      <p className="text-[#584738]"><strong>End Date:</strong> {
                         (() => {
                           const endDate = selectedChallengeForDetails.endDate;
                           if (!endDate || endDate.trim() === '') return 'Not specified';
@@ -1404,36 +1427,36 @@ const ChallengesPage: React.FC = () => {
 
                   {/* Ubicación */}
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Location Requirements</h4>
+                    <h4 className="text-lg font-semibold text-[#584738] mb-3">Location Requirements</h4>
                     {selectedChallengeForDetails.location && 
                      selectedChallengeForDetails.location.locationName && 
                      selectedChallengeForDetails.location.locationName.trim() !== '' ? (
-                      <div className="bg-blue-50 p-4 rounded-lg space-y-2 text-sm">
-                        <p><strong>Location:</strong> {selectedChallengeForDetails.location.locationName}</p>
-                        <p><strong>Coordinates:</strong> {
+                      <div className="bg-[#CEC1A8] p-4 rounded-lg space-y-2 text-sm">
+                        <p className="text-[#584738]"><strong>Location:</strong> {selectedChallengeForDetails.location.locationName}</p>
+                        <p className="text-[#584738]"><strong>Coordinates:</strong> {
                           selectedChallengeForDetails.location.latitude && 
                           selectedChallengeForDetails.location.longitude
                             ? `${selectedChallengeForDetails.location.latitude.toFixed(6)}, ${selectedChallengeForDetails.location.longitude.toFixed(6)}`
                             : 'N/A'
                         }</p>
-                        <p><strong>Tolerance Radius:</strong> {
+                        <p className="text-[#584738]"><strong>Tolerance Radius:</strong> {
                           selectedChallengeForDetails.location.toleranceRadius 
                             ? `${selectedChallengeForDetails.location.toleranceRadius}m`
                             : 'N/A'
                         }</p>
-                        <p className="text-blue-600 text-xs">
+                        <p className="text-[#584738] text-xs">
                           💡 You must be within {selectedChallengeForDetails.location.toleranceRadius || 'specified'}m of this location to submit evidence
                         </p>
                       </div>
                     ) : (
-                      <div className="bg-red-50 p-4 rounded-lg">
-                        <p className="text-red-800 text-sm">
+                      <div className="bg-[#F1EADA] p-4 rounded-lg">
+                        <p className="text-[#584738] text-sm">
                           ⚠️ <strong>Warning:</strong> Could not load location data for this challenge.
                         </p>
-                        <p className="text-red-700 text-xs mt-1">
+                        <p className="text-[#AAA396] text-xs mt-1">
                           This may be due to a backend error. Please try again later or contact support.
                         </p>
-                        <p className="text-red-700 text-xs">
+                        <p className="text-[#AAA396] text-xs">
                           Challenge ID: {selectedChallengeForDetails.id}
                         </p>
                       </div>
@@ -1443,10 +1466,10 @@ const ChallengesPage: React.FC = () => {
               </div>
 
               {/* Botones de acción */}
-              <div className="flex space-x-3 pt-6 border-t border-gray-200">
+              <div className="flex space-x-3 pt-6 border-t border-[#CEC1A8]">
                 <button
                   onClick={() => setShowDetailsModal(false)}
-                  className="flex-1 h-12 bg-gray-200 text-gray-800 rounded-xl font-medium hover:bg-gray-300"
+                  className="flex-1 h-12 bg-[#CEC1A8] text-[#584738] rounded-xl font-medium hover:bg-[#B59E7D] hover:text-[#F1EADA]"
                 >
                   Close
                 </button>
@@ -1455,7 +1478,7 @@ const ChallengesPage: React.FC = () => {
                     setShowDetailsModal(false)
                     handleJoinChallenge(selectedChallengeForDetails)
                   }}
-                  className="flex-1 h-12 bg-black text-white rounded-xl font-medium hover:bg-gray-900"
+                  className="flex-1 h-12 bg-[#B59E7D] text-[#F1EADA] rounded-xl font-medium hover:bg-[#584738]"
                 >
                   Join Challenge
                 </button>
@@ -1467,7 +1490,7 @@ const ChallengesPage: React.FC = () => {
         {/* ─── Modal de participantes ─── */}
         {showParticipantsModal && selectedChallengeForParticipants && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-[#F7F4F2] rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-bold text-gray-900">
                   Participants: {selectedChallengeForParticipants.name}
