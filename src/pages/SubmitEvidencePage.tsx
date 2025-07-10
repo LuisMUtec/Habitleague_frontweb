@@ -387,7 +387,7 @@ const SubmitEvidencePage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="evidences" />
 
       <main className="max-w-4xl mx-auto px-4 py-8">

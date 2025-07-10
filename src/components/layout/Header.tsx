@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { searchService, type SearchResult } from '../../services/searchService'
 import SearchDropdown from '../ui/SearchDropdown'
-import heroImg from '../../assets/hero.png'
+import banderaImg from '../../assets/bandera.png'
 import maleAvatar from '../../assets/MALE.png'
 import femaleAvatar from '../../assets/FEMALE.png'
 
@@ -136,13 +136,13 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
   }
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-white shadow-sm border-b border-[#CEC1A8]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/dashboard" className="flex items-center shrink-0">
-            <img src={heroImg} alt="Habit League" className="h-8 w-auto" />
-            <span className="ml-2 font-bold text-lg whitespace-nowrap">
+            <img src={banderaImg} alt="Habit League" className="h-8 w-auto" />
+            <span className="ml-2 font-bold text-lg whitespace-nowrap text-[#584738]">
               Habit League
             </span>
           </Link>
@@ -153,8 +153,8 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
               to="/dashboard"
               className={`text-sm font-medium ${
                 active === 'dashboard'
-                  ? 'text-gray-900'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-[#584738]'
+                  : 'text-[#AAA396] hover:text-[#584738]'
               }`}
             >
               Dashboard
@@ -163,8 +163,8 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
               to="/challenges"
               className={`text-sm font-medium ${
                 active === 'challenges'
-                  ? 'text-gray-900'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-[#584738]'
+                  : 'text-[#AAA396] hover:text-[#584738]'
               }`}
             >
               Challenges
@@ -173,8 +173,8 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
               to="/payments"
               className={`text-sm font-medium ${
                 active === 'payments'
-                  ? 'text-gray-900'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-[#584738]'
+                  : 'text-[#AAA396] hover:text-[#584738]'
               }`}
             >
               Payments
@@ -183,8 +183,8 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
               to="/evidences"
               className={`text-sm font-medium ${
                 active === 'evidences'
-                  ? 'text-gray-900'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-[#584738]'
+                  : 'text-[#AAA396] hover:text-[#584738]'
               }`}
             >
               Evidences
@@ -206,11 +206,11 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
                   }
                 }}
                 placeholder="Search pages, categories, challenges..."
-                className="block w-full px-3 pl-10 py-1 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
+                className="block w-full px-3 pl-10 py-1 rounded-full bg-[#F1EADA] focus:outline-none focus:ring-2 focus:ring-[#B59E7D] transition"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#AAA396]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -224,7 +224,7 @@ const Header: React.FC<HeaderProps> = ({ active }) => {
               </svg>
               {isSearching && (
                 <svg
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 animate-spin"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#AAA396] animate-spin"
                   fill="none"
                   viewBox="0 0 24 24"
                 >

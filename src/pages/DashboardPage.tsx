@@ -8,6 +8,9 @@ import { apiService } from '../services/api'
 import { buildApiUrl } from '../config/api'
 import type { Challenge, ChallengeParticipant } from '../types'
 import { getChallengePalette } from '../utils/colorPalette';
+import camaraImg from '../assets/camara.png';
+import estadisticaImg from '../assets/estadistica.png';
+import trofeoImg from '../assets/trofeo.png';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate()
@@ -209,7 +212,7 @@ const DashboardPage: React.FC = () => {
   const displayName = firstName || emailName || 'there'
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="dashboard" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
@@ -232,8 +235,8 @@ const DashboardPage: React.FC = () => {
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-2xl shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-[#F5EFE8] rounded-lg flex items-center justify-center">
-                <span className="text-2xl">📸</span>
+              <div className="w-12 h-12 bg-[#CEC1A8] rounded-lg flex items-center justify-center">
+                <img src={camaraImg} alt="Camera" className="w-10 h-10" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Daily Evidence</h3>
@@ -242,7 +245,7 @@ const DashboardPage: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/evidences')}
-              className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+              className="w-full px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm"
             >
               Submit Evidence
             </button>
@@ -250,8 +253,8 @@ const DashboardPage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-[#F5EFE8] rounded-lg flex items-center justify-center">
-                <span className="text-2xl">📊</span>
+              <div className="w-12 h-12 bg-[#CEC1A8] rounded-lg flex items-center justify-center">
+                <img src={estadisticaImg} alt="Statistics" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">View Progress</h3>
@@ -260,7 +263,7 @@ const DashboardPage: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/evidences?tab=stats')}
-              className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+              className="w-full px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm"
             >
               View Stats
             </button>
@@ -268,8 +271,8 @@ const DashboardPage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-[#F5EFE8] rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🏆</span>
+              <div className="w-12 h-12 bg-[#CEC1A8] rounded-lg flex items-center justify-center">
+                <img src={trofeoImg} alt="Trophy" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Join Challenges</h3>
@@ -278,7 +281,7 @@ const DashboardPage: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/challenges')}
-              className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm"
+              className="w-full px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm"
             >
               Browse Challenges
             </button>

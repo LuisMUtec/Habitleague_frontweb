@@ -32,7 +32,7 @@ const RegisterPage: React.FC = () => {
         </div>
 
         {/* ---------- Ilustración (centrada verticalmente) ---------- */}
-        <div className="hidden md:flex flex-1 items-center justify-end pr-8">
+        <div className="hidden md:flex flex-1 items-center justify-center pr-8">
           <img
             src={heroImg}
             alt="Hero"

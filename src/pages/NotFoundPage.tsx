@@ -8,7 +8,7 @@ const NotFoundPage: React.FC = () => {
   const searchTerm = location.state?.searchTerm || '';
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header />
       
       <main className="max-w-4xl mx-auto px-4 py-16">

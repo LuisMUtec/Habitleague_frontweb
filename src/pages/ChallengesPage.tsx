@@ -692,7 +692,7 @@ const ChallengesPage: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="challenges" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-12">
@@ -755,7 +755,7 @@ const ChallengesPage: React.FC = () => {
                     </button>
                     <button
                       onClick={() => handleJoinChallenge(ch)}
-                      className="w-full py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-900"
+                      className="w-full py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg text-sm font-medium hover:bg-[#584738]"
                     >
                       Join Challenge
                     </button>
@@ -791,7 +791,7 @@ const ChallengesPage: React.FC = () => {
           <div className="mt-6">
             <button
               onClick={() => setShowForm(!showForm)}
-              className="px-6 py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-900"
+              className="px-6 py-3 bg-[#B59E7D] text-[#F1EADA] rounded-xl font-medium hover:bg-[#584738]"
             >
               Create a Challenge
             </button>

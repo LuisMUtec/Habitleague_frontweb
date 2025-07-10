@@ -125,7 +125,7 @@ const PaymentsPage: React.FC = () => {
             <p className="text-red-600 mb-4">{error}</p>
             <button
               onClick={fetchPayments}
-              className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-900"
+              className="px-6 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738]"
             >
               Try Again
             </button>
@@ -136,7 +136,7 @@ const PaymentsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="payments" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
