@@ -462,28 +462,6 @@ const ChallengesPage: React.FC = () => {
     }, 100)
   }
 
-  // Función de debug para verificar el estado actual
-  const debugCurrentState = () => {
-    console.log('🔍 DEBUG: Current form state:', {
-      name,
-      description,
-      category,
-      imageUrl,
-      rules,
-      entryFee,
-      duration,
-      startDate,
-      endDate,
-      location,
-      latitude,
-      longitude,
-      toleranceRadius,
-      currency,
-      paymentMethodId,
-      cardLast4,
-      cardBrand
-    })
-  }
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
