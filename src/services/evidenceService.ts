@@ -58,7 +58,7 @@ export const evidenceService = {
   },
 
   // Subir imagen de evidencia (simulado - en producción usarías un servicio de upload)
-  uploadEvidenceImage: async (file: File): Promise<string> => {
+  uploadEvidenceImage: async (_file: File): Promise<string> => {
     console.log('🔄 Uploading evidence image...');
     
     // Simulación de upload - en producción esto iría a un servicio como AWS S3

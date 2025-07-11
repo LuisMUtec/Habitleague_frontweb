@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { paymentService } from '../services/paymentService';
-import type { Payment, PaymentData, PaymentStatus } from '../types';
+import type { Payment, PaymentData } from '../types';
 
 export const usePayments = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
@@ -41,11 +41,11 @@ export const usePayments = () => {
   }, [fetchPayments]);
 
   // Get payment status for a challenge
-  const getPaymentStatus = useCallback(async (challengeId: number): Promise<PaymentStatus> => {
+  const getPaymentStatus = useCallback(async (challengeId: number): Promise<boolean> => {
     try {
       setError(null);
-      const response = await paymentService.getPaymentStatusByChallenge(challengeId);
-      return response as PaymentStatus;
+      const response = await paymentService.getPaymentStatus(challengeId.toString());
+      return response.hasPaid;
     } catch (err: any) {
       setError(err.message || 'Failed to get payment status');
       throw err;

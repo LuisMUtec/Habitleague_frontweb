@@ -7,7 +7,6 @@ import { challengeService } from '../services/challengeService'
 import { apiService } from '../services/api'
 import { buildApiUrl } from '../config/api'
 import type { Challenge, ChallengeParticipant } from '../types'
-import { getChallengePalette } from '../utils/colorPalette';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate()

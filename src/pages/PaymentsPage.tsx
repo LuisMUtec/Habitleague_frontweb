@@ -3,7 +3,6 @@ import Header from '../components/layout/Header'
 import { apiService } from '../services/api'
 import { buildApiUrl } from '../config/api'
 import type { Payment } from '../types'
-import { PaymentStatus } from '../types'
 
 interface PaymentWithStatus extends Payment {
   challengeStatus?: {
@@ -16,7 +15,7 @@ const PaymentsPage: React.FC = () => {
   const [payments, setPayments] = useState<PaymentWithStatus[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [statusLoading, setStatusLoading] = useState<{ [key: number]: boolean }>({})
+
 
   useEffect(() => {
     fetchPayments()
@@ -36,48 +35,8 @@ const PaymentsPage: React.FC = () => {
     }
   }
 
-  const fetchPaymentStatus = async (challengeId: number) => {
-    setStatusLoading(prev => ({ ...prev, [challengeId]: true }))
-    try {
-      const url = buildApiUrl(`/payments/challenge/${challengeId}/status`)
-      const data = await apiService.getJSON<{ hasPaid: boolean; challengeId: number }>(url)
-      
-      setPayments(prev => prev.map(payment => 
-        payment.challengeId === challengeId 
-          ? { ...payment, challengeStatus: data }
-          : payment
-      ))
-    } catch (err: any) {
-      console.error(`Error fetching status for challenge ${challengeId}:`, err)
-      // Mostrar error en la UI para este challenge específico
-      setPayments(prev => prev.map(payment => 
-        payment.challengeId === challengeId 
-          ? { ...payment, challengeStatus: { hasPaid: false, challengeId } }
-          : payment
-      ))
-    } finally {
-      setStatusLoading(prev => ({ ...prev, [challengeId]: false }))
-    }
-  }
-
   const getStatusColor = (hasPaid: boolean) => {
     return hasPaid ? 'text-green-600' : 'text-red-600'
-  }
-
-  const getStatusText = (hasPaid: boolean) => {
-    return hasPaid ? 'Completed' : 'Pending'
-  }
-
-  const getStatusIcon = (hasPaid: boolean) => {
-    return hasPaid ? (
-      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ) : (
-      <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    )
   }
 
   const formatDate = (dateString: string) => {
@@ -99,7 +58,7 @@ const PaymentsPage: React.FC = () => {
 
   // Mapea el estado del backend a los valores esperados por el frontend
   const mapPaymentStatus = (status: string) => {
-    if (status === 'SUCCEEDED') return PaymentStatus.COMPLETED;
+    if (status === 'SUCCEEDED') return 'COMPLETED';
     return status;
   };
 
@@ -213,7 +172,7 @@ const PaymentsPage: React.FC = () => {
                           </div>
                           <div className="flex justify-between">
                             <span>Status:</span>
-                            <span className={`font-medium ${getStatusColor(mapPaymentStatus(payment.status) === PaymentStatus.COMPLETED)}`}>
+                            <span className={`font-medium ${getStatusColor(mapPaymentStatus(payment.status) === 'COMPLETED')}`}>
                               {mapPaymentStatus(payment.status)}
                             </span>
                           </div>
@@ -248,7 +207,7 @@ const PaymentsPage: React.FC = () => {
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-green-600">
-                  {payments.filter(p => mapPaymentStatus(p.status) === PaymentStatus.COMPLETED).length}
+                  {payments.filter(p => mapPaymentStatus(p.status) === 'COMPLETED').length}
                 </p>
                 <p className="text-sm text-gray-600">Completed</p>
               </div>

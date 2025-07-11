@@ -2,7 +2,7 @@
 
 export const API_CONFIG = {
   // URL directa del backend
-  BASE_URL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api',
+  BASE_URL: import.meta.env.VITE_API_URL || 'https://habitleaguebackend-production.up.railway.app/api',
 
   ENDPOINTS: {
     // Auth

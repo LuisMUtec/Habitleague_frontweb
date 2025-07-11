@@ -1,7 +1,7 @@
 // src/hooks/useChallenges.ts
 import { useState, useCallback } from 'react'
 import { apiService } from '../services/api'
-import { buildApiUrl, replaceUrlParams, API_CONFIG } from '../config/api'
+import { buildApiUrl, API_CONFIG } from '../config/api'
 import type { Challenge } from '../types'
 
 export function useChallenges() {

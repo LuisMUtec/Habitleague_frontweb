@@ -9,7 +9,6 @@ import { locationService } from '../services/locationService'
 import { challengeService } from '../services/challengeService'
 import type { Challenge, ChallengeParticipant, Location } from '../types'
 import { ChallengeCategory } from '../types'
-import { getChallengePalette } from '../utils/colorPalette';
 
 // importa tus imágenes desde assets
 import mindfulnessImg from '../assets/mind.jpg'

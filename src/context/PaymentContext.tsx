@@ -8,7 +8,6 @@ import React, {
 } from 'react'
 import { paymentService } from '../services/paymentService'
 import type { Payment, PaymentData } from '../types'
-import { PaymentStatus } from '../types'
 
 interface PaymentContextType {
   payments: Payment[]

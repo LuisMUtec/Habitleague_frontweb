@@ -25,19 +25,21 @@ export interface UserLogin {
   password: string;
 }
 
-export enum ChallengeCategory {
-  FITNESS = 'FITNESS',
-  MINDFULNESS = 'MINDFULNESS',
-  PRODUCTIVITY = 'PRODUCTIVITY',
-  LIFESTYLE = 'LIFESTYLE',
-  HEALTH = 'HEALTH',
-  CODING = 'CODING',
-  READING = 'READING',
-  FINANCE = 'FINANCE',
-  LEARNING = 'LEARNING',
-  WRITING = 'WRITING',
-  CREATIVITY = 'CREATIVITY'
-}
+export const ChallengeCategory = {
+  FITNESS: 'FITNESS',
+  MINDFULNESS: 'MINDFULNESS',
+  PRODUCTIVITY: 'PRODUCTIVITY',
+  LIFESTYLE: 'LIFESTYLE',
+  HEALTH: 'HEALTH',
+  CODING: 'CODING',
+  READING: 'READING',
+  FINANCE: 'FINANCE',
+  LEARNING: 'LEARNING',
+  WRITING: 'WRITING',
+  CREATIVITY: 'CREATIVITY'
+} as const;
+
+export type ChallengeCategory = 'FITNESS' | 'MINDFULNESS' | 'PRODUCTIVITY' | 'LIFESTYLE' | 'HEALTH' | 'CODING' | 'READING' | 'FINANCE' | 'LEARNING' | 'WRITING' | 'CREATIVITY';
 
 export interface Challenge {
   id: number;
@@ -108,12 +110,14 @@ export interface Payment {
   updatedAt: string;
 }
 
-export enum PaymentStatus {
-  PENDING = 'PENDING',
-  COMPLETED = 'COMPLETED',
-  FAILED = 'FAILED',
-  REFUNDED = 'REFUNDED'
-}
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const;
+
+export type PaymentStatus = 'PENDING' | 'COMPLETED' | 'FAILED' | 'REFUNDED';
 
 export interface PaymentData {
   challengeId?: number;
