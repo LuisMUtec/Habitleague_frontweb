@@ -1,5 +1,19 @@
 // src/config/api.ts
 
+// Validación de variables de entorno requeridas
+const validateEnvironmentVariables = () => {
+  if (!import.meta.env.VITE_API_URL) {
+    console.warn('⚠️ VITE_API_URL no está configurada, usando fallback: http://localhost:8080/api');
+  }
+  
+  if (!import.meta.env.VITE_GOOGLE_MAPS_API_KEY) {
+    console.warn('⚠️ VITE_GOOGLE_MAPS_API_KEY no está configurada. Google Maps no funcionará correctamente.');
+  }
+};
+
+// Ejecutar validación al cargar el módulo
+validateEnvironmentVariables();
+
 export const API_CONFIG = {
   // URL directa del backend
   BASE_URL: import.meta.env.VITE_API_URL || 'https://habitleaguebackend-production.up.railway.app/api',

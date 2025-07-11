@@ -14,10 +14,17 @@ npm install
 ```
 
 ### 2. Configurar Conexión al Backend
-Crear archivo `.env.local` en la raíz del proyecto:
+Copiar y configurar el archivo de variables de entorno:
+
+```bash
+cp env.example .env.local
+```
+
+Editar `.env.local` con tus valores:
 
 ```env
 VITE_API_URL=http://192.168.83.163:3000/api
+VITE_GOOGLE_MAPS_API_KEY=tu_api_key_aqui
 ```
 
 ### 3. Ejecutar la Aplicación
@@ -32,10 +39,21 @@ La aplicación estará disponible en: `http://localhost:5173`
 ### Variables de Entorno Disponibles
 
 ```env
-# URL del backend (requerido)
+# API Configuration (requerido)
 VITE_API_URL=http://192.168.83.163:3000/api
 
-# Configuración opcional
+# Google Maps API (requerido para funcionalidades de ubicación)
+VITE_GOOGLE_MAPS_API_KEY=tu_api_key_aqui
+
+# Upload Service (para producción)
+VITE_UPLOAD_SERVICE_URL=https://your-upload-service.com
+
+# Test Configuration
+VITE_TEST_API_URL=http://localhost:8080/api
+VITE_TEST_EMAIL=test@example.com
+VITE_TEST_PASSWORD=testpassword123
+
+# App Configuration
 VITE_APP_NAME=HabitLeague
 VITE_APP_VERSION=1.0.0
 ```

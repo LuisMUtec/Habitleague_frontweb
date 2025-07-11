@@ -97,6 +97,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
   return (
     <div className={`space-y-8 ${isStep1 ? 'w-full max-w-md mx-auto' : ''}`}>
+      {/* Espacio adicional arriba para el paso 1 */}
+      {isStep1 && <div className="h-8"></div>}
+      
       {/* Encabezados */}
       <p
         className={`text-xs text-gray-500 uppercase tracking-wide ${
@@ -171,7 +174,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           {/* Botón negro */}
           <Button
             onClick={next}
-            className="w-full h-12 !bg-black !text-white rounded-xl font-medium hover:!bg-gray-900"
+            className="w-full h-12 px-8 !bg-black !text-white rounded-xl font-medium hover:!bg-gray-900"
           >
             Next
           </Button>

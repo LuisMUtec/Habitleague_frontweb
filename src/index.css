@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fondo global beige para toda la aplicación */
+/* Fondo global con la nueva paleta de colores */
 body {
-  background-color: #F5EFE8;
+  background-color: #F1EADA;
 }
 
 /* Puedes agregar aquí un pequeño reset si lo necesitas, pero no agregues estilos personalizados ni globales. */

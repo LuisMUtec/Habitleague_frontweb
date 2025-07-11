@@ -121,7 +121,7 @@ const EvidenceDetailPage: React.FC = () => {
   const status = getValidationStatus(evidence);
 
   return (
-    <div className="min-h-screen bg-[#F5EFE8]">
+    <div className="min-h-screen bg-[#F1EADA]">
       <Header active="evidences" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">

@@ -40,7 +40,9 @@ const LoginPage: React.FC = () => {
 
       {/* Formulario + ilustración */}
       <section className="grid w-full max-w-6xl gap-16 md:grid-cols-2 items-start">
-        <LoginForm onSubmit={handleSubmit} />
+        <div className="flex justify-end">
+          <LoginForm onSubmit={handleSubmit} />
+        </div>
 
         <div className="hidden md:flex justify-center">
           <img

@@ -61,7 +61,15 @@ const MapComponent: React.FC<MapComponentProps> = ({
       }
 
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDYX6fNcKKvZb5DVDvaVRgg5GQbqbbTWMU'}&libraries=places`;
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+      
+      if (!apiKey) {
+        console.warn('⚠️ VITE_GOOGLE_MAPS_API_KEY no está configurada. Google Maps no funcionará correctamente.');
+        setIsLoading(false);
+        return;
+      }
+      
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
       script.async = true;
       script.defer = true;
       script.onload = initializeMap;
@@ -288,7 +296,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
           <button
             type="button"
             onClick={handleSearchLocation}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm whitespace-nowrap"
+            className="px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm whitespace-nowrap"
           >
             🔍 Buscar
           </button>
@@ -296,7 +304,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
             <button
               type="button"
               onClick={centerOnUserLocation}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm whitespace-nowrap"
+              className="px-4 py-2 bg-[#B59E7D] text-[#F1EADA] rounded-lg hover:bg-[#584738] text-sm whitespace-nowrap"
               title="Centrar en mi ubicación actual"
             >
               📍 Mi Ubicación
